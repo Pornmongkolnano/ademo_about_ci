@@ -39,3 +39,10 @@
     "vite": "^6.0.5"
   }
 }
+"scripts": {
+ "dev": "vite",
+ "build": "tsc -b && vite build",
+ "lint": "eslint .",
+ "preview": "vite preview",
+ "test": "vitest"
+ },
