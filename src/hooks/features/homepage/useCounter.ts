@@ -5,18 +5,19 @@ type UseCounter = {
   increment: () => void;
   decrement: () => void;
   reset: () => void;
-  val: number;                  // ✅ เพิ่ม
-  setVal: (n: number) => void;  // ✅ เพิ่ม
+  val: number;
+  setVal: (n: number) => void;
 };
 
-export default function useCounter(): UseCounter {
-  const [count, setCount] = useState(0);
+// ✅ เพิ่มพารามิเตอร์ initialValue = 0
+export default function useCounter(initialValue: number = 0): UseCounter {
+  const [count, setCount] = useState(initialValue);
 
   const increment = useCallback(() => setCount((c) => c + 1), []);
-  const decrement = useCallback(() => setCount((c) => Math.max(0, c - 1)), []);
+  // ✅ เอา Math.max ออก เพื่อให้ลดต่ำกว่า 0 ได้
+  const decrement = useCallback(() => setCount((c) => c - 1), []);
   const reset = useCallback(() => setCount(0), []);
-  const setVal = useCallback((n: number) => setCount(n), []); // ✅ เพิ่ม
+  const setVal = useCallback((n: number) => setCount(n), []);
 
-  // ✅ คืนค่าครบทั้ง 6 ตัว
   return { count, increment, decrement, reset, val: count, setVal };
 }
